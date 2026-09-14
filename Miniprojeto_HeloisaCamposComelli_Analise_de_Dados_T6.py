@@ -51,3 +51,7 @@ df['PR_NOME'] = df['PR_NOME'].replace('#N/D', 'SEM NOME') # Substituindo os camp
 df = df.dropna(axis=1, how='all') # Removendo as colunas que possuem todos os valores nulos
 print(f"Dimensões do data frame após a limpeza das colunas nulas: {df.shape}") # Verificando o número de linhas e colunas do data frame após a limpeza das colunas nulas
 
+# Realizando a exclusão de linhas duplicadas com o mesmo CO_ID, mantendo apenas a primeira ocorrência
+print(f"Contagem de linhas dup'licadas com o mesmo CO_ID: \n{df[df.duplicated(keep=False)]['CO_ID'].value_counts()}") # Verificando a ocorrência de linhas duplicadas dentro de uma mesma compra
+df = df.drop_duplicates() # Removendo as linhas referentes ao mesmo CO_ID que apresentam informações duplicadas
+print(f"Dimensões do data frame após a exclusão de linhas duplicadas com o mesmo CO_ID: {df.shape}") # Verificando o número de linhas e colunas do data frame após a exclusão de linhas duplicadas com o mesmo CO_ID
