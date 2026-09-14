@@ -55,3 +55,30 @@ print(f"Dimensões do data frame após a limpeza das colunas nulas: {df.shape}")
 print(f"Contagem de linhas dup'licadas com o mesmo CO_ID: \n{df[df.duplicated(keep=False)]['CO_ID'].value_counts()}") # Verificando a ocorrência de linhas duplicadas dentro de uma mesma compra
 df = df.drop_duplicates() # Removendo as linhas referentes ao mesmo CO_ID que apresentam informações duplicadas
 print(f"Dimensões do data frame após a exclusão de linhas duplicadas com o mesmo CO_ID: {df.shape}") # Verificando o número de linhas e colunas do data frame após a exclusão de linhas duplicadas com o mesmo CO_ID
+
+# Gerando estatísticas básicas para a coluna CL_FHL
+print(f"Estatísticas básicas da coluna CL_FHL: \n{df['CL_FHL'].describe()}") # Gerando estatísticas básicas para a coluna CL_FHL
+print(f"Moda da coluna CL_FHL: {df['CL_FHL'].mode()[0]}") # Verificando a moda da coluna CL_FHL
+
+# Avaliando a relação entre o gênero, segmentação econômica do cliente e o número de compras realizadas
+classe_compras = df.pivot_table(
+    index='CL_GENERO',
+    columns= 'CL_SEG',
+    values='CO_ID',
+    aggfunc='nunique'
+)
+print(f"Relação entre o gênero e segmentação econômica do cliente e o número de compras realizadas: \n{classe_compras}") 
+
+# Avaliando os produtos mais vendidos
+dez_mais_vendidos = df.groupby('PR_NOME').size().sort_values(ascending=False).head(10)
+print(f"Produtos mais vendidos: \n{dez_mais_vendidos}") # Visualizando os 10 produtos mais vendidos
+
+# Verificando as categorias mais vendidas por gênero dos clientes
+genero_produto = df.pivot_table(
+    index='CL_GENERO',
+    columns='PR_CAT',
+    values='CO_ID',
+    aggfunc='count',
+    fill_value=0
+)
+print(f"Categorias mais vendidas por gênero dos clientes: \n{genero_produto}") # Visualizando as categorias mais vendidas por gênero dos clientes
