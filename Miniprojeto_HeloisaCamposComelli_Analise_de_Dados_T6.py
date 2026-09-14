@@ -46,3 +46,8 @@ print(f"Tipo dos dados de cada coluna após o tratamento de strings e datas: \n{
 # Substituindo os campos identificados como "#N/D" para facilitar a análise de dados
 df['PR_CAT'] = df['PR_CAT'].replace('#N/D', 'SEM CATEGORIA') # Substituindo os campos identificados como "#N/D" na coluna PR_CAT para "SEM CATEGORIA"
 df['PR_NOME'] = df['PR_NOME'].replace('#N/D', 'SEM NOME') # Substituindo os campos identificados como "#N/D" na coluna PR_NOME para "SEM NOME"
+
+# Realizando a limpeza das colunas nulas identificadas como "Unnamed " pelo Pandas
+df = df.dropna(axis=1, how='all') # Removendo as colunas que possuem todos os valores nulos
+print(f"Dimensões do data frame após a limpeza das colunas nulas: {df.shape}") # Verificando o número de linhas e colunas do data frame após a limpeza das colunas nulas
+
