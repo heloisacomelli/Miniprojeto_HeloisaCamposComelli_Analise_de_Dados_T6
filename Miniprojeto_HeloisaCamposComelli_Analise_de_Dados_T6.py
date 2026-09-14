@@ -36,3 +36,13 @@ print(f"Dados da coluna CL_GENERO: \n{df['CL_GENERO'].unique()}") # Visualizando
 print(f"Dados da coluna PR_CAT: \n{df['PR_CAT'].unique()}") # Visualizando os dados da coluna PR_CAT para verificar a falta de padronização de textos
 print(f"Dados da coluna PR_NOME: \n{df['PR_NOME'].unique()}") # Visualizando os dados da coluna PR_NOME para verificar a falta de padronização de textos
 
+# Realizando o tratamento de strings e datas
+df = df.map(lambda x: x.strip().upper() if isinstance(x, str) else x) # Retirando possíveis espaços em branco no início e no final das strings e padronizando todas as letras para maiúsculas
+df['DATA'] = pd.to_datetime(df['DATA'], format='%d/%m/%Y', errors='coerce') # Convertendo a coluna 'DATA' para o formato de data. errors= 'coerce' foi utilizado para converter possíveis erros em NaT
+print(f"Valores nulos na coluna 'DATA' após a conversão: {df['DATA'].isnull().sum()}") # Verificando possíveis erros que geraram dados nulos na coluna 'DATA' após a conversão
+print(f"Primeiras linhas do data frame após o tratamento de strings e datas: \n{df.head()}") # Visualizando as cinco primeiras linhas do data frame após o tratamento de strings e datas
+print(f"Tipo dos dados de cada coluna após o tratamento de strings e datas: \n{df.dtypes}") # Verificando o tipo de cada dado do data frame após o tratamento de strings e datas
+
+# Substituindo os campos identificados como "#N/D" para facilitar a análise de dados
+df['PR_CAT'] = df['PR_CAT'].replace('#N/D', 'SEM CATEGORIA') # Substituindo os campos identificados como "#N/D" na coluna PR_CAT para "SEM CATEGORIA"
+df['PR_NOME'] = df['PR_NOME'].replace('#N/D', 'SEM NOME') # Substituindo os campos identificados como "#N/D" na coluna PR_NOME para "SEM NOME"
