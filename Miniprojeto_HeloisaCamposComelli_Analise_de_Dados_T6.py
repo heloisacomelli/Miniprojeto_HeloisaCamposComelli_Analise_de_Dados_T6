@@ -31,3 +31,8 @@ print(f"Códigos dos produtos sem categoria: \n{categoria_nula.groupby('PR_CAT')
 ID_107 = df[df['PR_ID'] == 107] # Criando um data frame com o produto que possui o ID 107
 print(f"Nomes e categorias relacionados ao ID 107: \n{ID_107[['PR_NOME', 'PR_CAT']].drop_duplicates()}") # Visualizando os nomes e categorias do produto com ID 107
 
+# Verificando a falta de padronização de textos nas colunas CL_GENERO, PR_CAT e PR_NOME
+print(f"Dados da coluna CL_GENERO: \n{df['CL_GENERO'].unique()}") # Visualizando os dados da coluna CL_GENERO para verificar a falta de padronização de textos
+print(f"Dados da coluna PR_CAT: \n{df['PR_CAT'].unique()}") # Visualizando os dados da coluna PR_CAT para verificar a falta de padronização de textos
+print(f"Dados da coluna PR_NOME: \n{df['PR_NOME'].unique()}") # Visualizando os dados da coluna PR_NOME para verificar a falta de padronização de textos
+
