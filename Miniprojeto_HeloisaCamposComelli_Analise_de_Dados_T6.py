@@ -51,7 +51,7 @@ df['PR_NOME'] = df['PR_NOME'].replace('#N/D', 'SEM NOME') # Substituindo os camp
 df = df.dropna(axis=1, how='all') # Removendo as colunas que possuem todos os valores nulos
 print(f"Dimensões do data frame após a limpeza das colunas nulas: {df.shape}") # Verificando o número de linhas e colunas do data frame após a limpeza das colunas nulas
 
-# Realizando a exclusão de linhas duplicadas com o mesmo CO_ID, mantendo apenas a primeira ocorrência
+# Realizando a exclusão de linhas com o mesmo CO_ID que possuam os demais dados duplicados
 print(f"Contagem de linhas dup'licadas com o mesmo CO_ID: \n{df[df.duplicated(keep=False)]['CO_ID'].value_counts()}") # Verificando a ocorrência de linhas duplicadas dentro de uma mesma compra
 df = df.drop_duplicates() # Removendo as linhas referentes ao mesmo CO_ID que apresentam informações duplicadas
 print(f"Dimensões do data frame após a exclusão de linhas duplicadas com o mesmo CO_ID: {df.shape}") # Verificando o número de linhas e colunas do data frame após a exclusão de linhas duplicadas com o mesmo CO_ID
@@ -82,3 +82,26 @@ genero_produto = df.pivot_table(
     fill_value=0
 )
 print(f"Categorias mais vendidas por gênero dos clientes: \n{genero_produto}") # Visualizando as categorias mais vendidas por gênero dos clientes
+
+# Registrando o relatório final 
+print("\n============ RELATÓRIO FINAL ============")
+
+print(f"Total de registros: {len(df)}")
+print(f"Quantidade de colunas: {df.shape[1]}")
+print(f"Total de produtos distintos: {df['PR_ID'].nunique()}")
+print(f"Total de compras distintas: {df['CO_ID'].nunique()}")
+print(f"Total de clientes distintos: {df['CL_ID'].nunique()}")
+
+print("\n------- Qualidade dos dados -------")
+print(f"Valores nulos na base de dados: {df.isnull().sum().sum()}")
+print(f"Registros duplicados na base de dados: {df.duplicated().sum()}")
+
+print("\n------- Estatística: Número de filhos -------")
+print(f"Mínimo: {df['CL_FHL'].min()}")
+print(f"Máximo: {df['CL_FHL'].max()}")
+print(f"Média: {df['CL_FHL'].mean():.2f}")
+print(f"Mediana: {df['CL_FHL'].median()}")
+print(f"Moda: {df['CL_FHL'].mode()[0]}")
+print(f"Desvio padrão: {df['CL_FHL'].std():.2f}")
+
+print("==========================================")
