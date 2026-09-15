@@ -105,3 +105,13 @@ print(f"Moda: {df['CL_FHL'].mode()[0]}")
 print(f"Desvio padrão: {df['CL_FHL'].std():.2f}")
 
 print("==========================================")
+
+# Salvando o data frame tratado em um novo arquivo CSV
+df.to_csv("Base Varejo Tratada.csv", sep=";", index=False, encoding="utf-8") # Salvando o data frame tratado em um novo arquivo CSV com a indicação do separador brasileiro utilizado e da codificação  
+
+# Verificando se o arquivo CSV foi salvo corretamente
+try:
+    df_tratado = pd.read_csv("Base Varejo Tratada.csv", sep=";", encoding="utf-8")
+    print(f"Arquivo 'Base Varejo Tratada.csv' salvo com sucesso! Dimensões do data frame: {df_tratado.shape}")
+except FileNotFoundError:
+    print("Erro: O arquivo 'Base Varejo Tratada.csv' não foi encontrado.") 
